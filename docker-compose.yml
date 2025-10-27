@@ -1,12 +1,22 @@
 version: "3.8"
+
 services:
-  recommender:
-    build: ./app
-    container_name: movie-recommender
+  trainer:
+    build:
+      context: .
+      dockerfile: training/Dockerfile
+    volumes:
+      - ./app:/app/app
+      - ./kaggle_cache:/root/.cache/kagglehub     # ✅ novo volume
+
+
+  web:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
     ports:
       - "8501:8501"
     volumes:
-      - ./app:/app
-    environment:
-      - PYTHONUNBUFFERED=1
-    restart: unless-stopped
+      - ./app:/app/app
+    depends_on:
+      - trainer

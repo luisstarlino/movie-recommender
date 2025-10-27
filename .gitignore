@@ -1,0 +1,70 @@
+# === Python ===
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pkl
+*.pickle
+
+# === Virtual Environment ===
+venv/
+.env/
+.env.bak/
+.env.local
+.envrc
+*.env
+
+# === Kaggle & Cache ===
+.kaggle/
+.kagglehub/
+.kaggle_cache/
+.kagglehub_cache/
+~/.cache/
+*/__pycache__/
+*.cache/
+cache/
+data/
+datasets/
+downloads/
+/root/.cache/
+.kagglehub/
+
+# === Logs & Temp Files ===
+*.log
+*.tmp
+*.bak
+*.swp
+.DS_Store
+Thumbs.db
+
+# === Model Files ===
+/app/app/model.pkl
+*.pkl
+*.joblib
+*.h5
+*.pt
+*.onnx
+
+# === Docker ===
+/__pycache__/
+*.pid
+*.sock
+*.db
+*.sqlite
+*.sqlite3
+*.tar
+*.gz
+
+# === VSCode / IDE ===
+.vscode/
+.idea/
+*.code-workspace
+*.iml
+
+# === Output folders ===
+build/
+dist/
+reports/
+tmp/
+output/
+uploads/
