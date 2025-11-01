@@ -1,2 +1,35 @@
-# --- to run the environment
+# --- To build and run the full environment (trainer + web)
 docker compose up --build
+
+# --- To build only (without running)
+docker compose build
+
+# --- To run the trainer service manually (model training)
+docker compose run --rm trainer python training/train_model.py
+
+# --- To run only the web service (API / frontend)
+docker compose up web
+
+# --- To run the web service in detached mode (background)
+docker compose up -d web
+
+# --- To stop all running containers
+docker compose down
+
+# --- To remove volumes (⚠️ this deletes models, cache, etc.)
+docker compose down -v
+
+# --- To view container logs (follow mode)
+docker compose logs -f
+
+# --- To access the web container shell
+docker compose exec web bash
+
+# --- To access the trainer container shell
+docker compose run --rm trainer bash
+
+# --- To list running containers
+docker ps
+
+# --- To rebuild a specific service (example: web)
+docker compose build web

@@ -39,6 +39,10 @@ Thumbs.db
 
 # === Model Files ===
 /app/app/model.pkl
+/app/app/movies.csv
+/app/app/movie.csv
+/app/app/ratings.csv
+/app/app/rating.csv
 *.pkl
 *.joblib
 *.h5
@@ -68,3 +72,5 @@ reports/
 tmp/
 output/
 uploads/
+app/movies.csv
+app/ratings.csv
