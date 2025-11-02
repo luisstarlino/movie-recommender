@@ -37,11 +37,7 @@ genre = st.selectbox(
     ["Action", "Comedy", "Drama", "Romance", "Thriller", "Sci-Fi", "Horror", "Animation"]
 )
 
-age_group = st.selectbox(
-    "👥 Faixa etária:",
-    ["18-25", "26-35", "36-50", "50+"]
-)
-
+rating_min = st.slider("⭐ Nota mínima média (0 a 5)", 0.0, 5.0, 3.5, 0.1)
 popularity = st.slider("🔥 Popularidade mínima (número de avaliações)", 0, 500, 50)
 
 # =======================
@@ -54,31 +50,30 @@ log_box = st.sidebar.empty()
 # Ação principal
 # =======================
 if st.button("Gerar Recomendações"):
-    st.info("🔄 Gerando recomendações...")
+    with st.spinner("🔄 Gerando recomendações..."):
+        try:
+            recommender = HybridRecommender()
+            recommendations = recommender.get_recommendations(genre, popularity, rating_min)
 
-    try:
-        recommender = HybridRecommender()
-        recommendations = recommender.get_recommendations(genre, popularity)
+            # Atualiza logs em tempo real
+            log_box.text(log_stream.getvalue())
 
-        # Atualiza logs em tempo real
-        log_box.text(log_stream.getvalue())
+            if recommendations.empty:
+                st.warning("⚠️ Nenhum filme encontrado com os filtros selecionados.")
+            else:
+                st.success("✅ Recomendações geradas com sucesso!")
 
-        if recommendations.empty:
-            st.warning("⚠️ Nenhum filme encontrado com os filtros selecionados.")
-        else:
-            st.success("✅ Recomendações geradas com sucesso!")
+                for _, row in recommendations.iterrows():
+                    cols = st.columns([3, 1])
+                    with cols[0]:
+                        st.markdown(f"**🎬 {row['title']}**")
+                    with cols[1]:
+                        st.markdown(f"⭐ {row['score']:.2f}")
 
-            for _, row in recommendations.iterrows():
-                cols = st.columns([3, 1])
-                with cols[0]:
-                    st.markdown(f"**🎬 {row['title']}**")
-                with cols[1]:
-                    st.markdown(f"⭐ {row['score']:.2f}")
-
-    except Exception as e:
-        logging.exception("Erro ao gerar recomendações:")
-        log_box.text(log_stream.getvalue())
-        st.error(f"❌ Ocorreu um erro: {e}")
+        except Exception as e:
+            logging.exception("Erro ao gerar recomendações:")
+            log_box.text(log_stream.getvalue())
+            st.error(f"❌ Ocorreu um erro: {e}")
 
 # =======================
 # Atualiza logs no sidebar sempre
