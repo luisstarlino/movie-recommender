@@ -73,4 +73,4 @@ print(f"✅ Mapeamentos salvos em {mapping_path}")
 shutil.copy(ratings_path, os.path.join(output_dir, "ratings.csv"))
 shutil.copy(movies_path, os.path.join(output_dir, "movies.csv"))
 
-print(f"✅ Arquivos CSV copiados para {output_dir}")
+print(f"✅ Arquivos CSV copiados para {output_dir}");
